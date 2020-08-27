@@ -1,23 +1,31 @@
 import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import Button from "../button";
 import { Text, View } from "react-native";
 import styles from "./styles";
 import layout from "../../config";
+import { pressNum, pressEnter } from "../../redux";
 
-const Main = () => {
+const Main = ({
+  calcState: { stack, inputState },
+  pressNumAction,
+  pressEnterAction
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.stacks}>
         <View style={styles.stackRow}>
-          <Text style={styles.stackText}>0</Text>
+          <Text style={styles.stackText}>{stack[2] || 0}</Text>
         </View>
         <View style={styles.stackRow}>
-          <Text style={styles.stackText}>0</Text>
+          <Text style={styles.stackText}>{stack[1] || 0}</Text>
         </View>
         <View style={styles.stackRow}>
-          <Text style={styles.stackText}>0</Text>
+          <Text style={styles.stackText}>{stack[0] || 0}</Text>
         </View>
       </View>
+
       <View style={styles.inputSection}>
         {layout.map((item) => (
           <View style={styles.row} key={Math.floor(Math.random() * 10000)}>
@@ -26,6 +34,9 @@ const Main = () => {
                 text={element}
                 emphasis={element === "enter" && true}
                 key={Math.floor(Math.random() * 10000)}
+                onPress={
+                  element === "enter" ? pressEnterAction : pressNumAction
+                }
               />
             ))}
           </View>
@@ -35,4 +46,17 @@ const Main = () => {
   );
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  calcState: state
+});
+
+const mapActionsToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      pressNumAction: pressNum,
+      pressEnterAction: pressEnter
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapActionsToProps)(Main);
