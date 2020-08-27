@@ -1,5 +1,4 @@
-import React from "react";
-import { StyleSheet, TouchableHighlight, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 const baseContainer = {
   justifyContent: "center",
@@ -13,15 +12,7 @@ const baseText = {
   fontWeight: "bold"
 };
 
-const Button = ({ text, emphasis }) => (
-  <View style={emphasis ? styles.emphasisContainer : styles.container}>
-    <TouchableHighlight>
-      <Text style={emphasis ? styles.emphasisText : styles.text}>{text}</Text>
-    </TouchableHighlight>
-  </View>
-);
-
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     ...baseContainer,
     flex: 1,
@@ -41,5 +32,3 @@ const styles = StyleSheet.create({
     color: "#111211"
   }
 });
-
-export default Button;
