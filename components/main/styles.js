@@ -1,5 +1,14 @@
 import { StyleSheet } from "react-native";
 
+const baseTextStyles = {
+  marginTop: "9%",
+  marginRight: "4%",
+  fontSize: 30,
+  fontWeight: "bold",
+  textAlign: "right",
+  justifyContent: "center"
+};
+
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -15,14 +24,17 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "#fff"
   },
-  stackText: {
-    textAlign: "right",
-    justifyContent: "center",
-    color: "#ffffff",
-    marginTop: "10%",
-    marginRight: "5%",
-    fontSize: 30,
-    fontWeight: "bold"
+  append: {
+    ...baseTextStyles,
+    color: "#ffffff"
+  },
+  replace: {
+    ...baseTextStyles,
+    color: "#17b2e6"
+  },
+  push: {
+    ...baseTextStyles,
+    color: "#4eb821"
   },
   inputSection: {
     flex: 2,

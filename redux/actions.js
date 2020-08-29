@@ -1,4 +1,4 @@
-import { PRESS_ENTER, PRESS_NUM } from "./types";
+import { PRESS_ENTER, PRESS_NUM, PRESS_OPERATION } from "./types";
 
 export const pressNum = (number) => ({
   type: PRESS_NUM,
@@ -7,4 +7,9 @@ export const pressNum = (number) => ({
 
 export const pressEnter = () => ({
   type: PRESS_ENTER
+});
+
+export const pressOperator = (operator) => ({
+  type: PRESS_OPERATION,
+  payload: operator
 });

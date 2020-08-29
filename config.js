@@ -15,3 +15,5 @@ export default [
     row: ["0", ".", "enter"]
   }
 ];
+
+export const operators = ["/", "pow", "X", "-", "+"];

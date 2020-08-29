@@ -4,25 +4,26 @@ import { connect } from "react-redux";
 import Button from "../button";
 import { Text, View } from "react-native";
 import styles from "./styles";
-import layout from "../../config";
-import { pressNum, pressEnter } from "../../redux";
+import layout, { operators } from "../../config";
+import { pressNum, pressEnter, pressOperator } from "../../redux";
 
 const Main = ({
-  calcState: { stack, inputState },
+  calcState: { stack, inputType },
   pressNumAction,
-  pressEnterAction
+  pressEnterAction,
+  pressOperatorAction
 }) => {
   return (
     <View style={styles.container}>
       <View style={styles.stacks}>
         <View style={styles.stackRow}>
-          <Text style={styles.stackText}>{stack[2] || 0}</Text>
+          <Text style={styles.append}>{stack[2] || 0}</Text>
         </View>
         <View style={styles.stackRow}>
-          <Text style={styles.stackText}>{stack[1] || 0}</Text>
+          <Text style={styles.append}>{stack[1] || 0}</Text>
         </View>
         <View style={styles.stackRow}>
-          <Text style={styles.stackText}>{stack[0] || 0}</Text>
+          <Text style={styles[inputType]}>{stack[0] || 0}</Text>
         </View>
       </View>
 
@@ -35,7 +36,11 @@ const Main = ({
                 emphasis={element === "enter" && true}
                 key={Math.floor(Math.random() * 10000)}
                 onPress={
-                  element === "enter" ? pressEnterAction : pressNumAction
+                  element === "enter"
+                    ? pressEnterAction
+                    : operators.includes(element)
+                    ? pressOperatorAction
+                    : pressNumAction
                 }
               />
             ))}
@@ -54,7 +59,8 @@ const mapActionsToProps = (dispatch) =>
   bindActionCreators(
     {
       pressNumAction: pressNum,
-      pressEnterAction: pressEnter
+      pressEnterAction: pressEnter,
+      pressOperatorAction: pressOperator
     },
     dispatch
   );
