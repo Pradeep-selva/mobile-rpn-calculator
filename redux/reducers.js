@@ -1,4 +1,10 @@
-import { PRESS_ENTER, PRESS_NUM, PRESS_OPERATION } from "./types";
+import {
+  PRESS_ENTER,
+  PRESS_NUM,
+  PRESS_OPERATION,
+  PRESS_SWAP,
+  PRESS_CLEAR
+} from "./types";
 
 const initialState = {
   stack: [],
@@ -45,6 +51,13 @@ export default function (state = initialState, { type, payload }) {
         ...state,
         stack: [state.stack[0], ...state.stack],
         inputType: "replace"
+      };
+    case PRESS_CLEAR:
+      return initialState;
+    case PRESS_SWAP:
+      return {
+        ...state,
+        stack: [state.stack[1], state.stack[0], ...state.stack.slice(2)]
       };
     default:
       return state;

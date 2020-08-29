@@ -5,13 +5,21 @@ import Button from "../button";
 import { Text, View } from "react-native";
 import styles from "./styles";
 import layout, { operators } from "../../config";
-import { pressNum, pressEnter, pressOperator } from "../../redux";
+import {
+  pressNum,
+  pressEnter,
+  pressOperator,
+  pressClear,
+  pressSwap
+} from "../../redux";
 
 const Main = ({
   calcState: { stack, inputType },
   pressNumAction,
   pressEnterAction,
-  pressOperatorAction
+  pressOperatorAction,
+  pressClearAction,
+  pressSwapAction
 }) => {
   return (
     <View style={styles.container}>
@@ -40,6 +48,10 @@ const Main = ({
                     ? pressEnterAction
                     : operators.includes(element)
                     ? pressOperatorAction
+                    : element === "clr"
+                    ? pressClearAction
+                    : element === "swap"
+                    ? pressSwapAction
                     : pressNumAction
                 }
               />
@@ -60,7 +72,9 @@ const mapActionsToProps = (dispatch) =>
     {
       pressNumAction: pressNum,
       pressEnterAction: pressEnter,
-      pressOperatorAction: pressOperator
+      pressOperatorAction: pressOperator,
+      pressClearAction: pressClear,
+      pressSwapAction: pressSwap
     },
     dispatch
   );
